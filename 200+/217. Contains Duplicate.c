@@ -1,7 +1,7 @@
 //
 //date: 2017-4-16
 //describe: 纸上得来终觉浅，绝知此事要躬行。
-//			简答的开链方式的哈希表，昨天想到这个，但是不知道怎么去实现。看了讨论，最后实现了。
+//	简答的开链方式的哈希表，昨天想到这个，但是不知道怎么去实现。看了讨论，最后实现了。
 //			
 //
 struct Node{
@@ -25,30 +25,20 @@ bool addValue(struct Set* myset, int value){
     idx = idx % (myset->bucketSize);
 
     struct Node* temp = myset->table[idx];
-
-    if( temp == NULL){
-        temp = malloc(sizeof(struct Node));
-        memset(temp, 0, sizeof(struct Node));
-        temp->val = value;
-        temp->next = NULL;
-        myset->table[idx] = temp;
-        return true;
-    }
     
     
-    
-    while(temp->val != value &&  temp->next != NULL){
+    while(temp!=NULL){
+        if(temp->val == value)
+            return false;
         temp = temp->next;
     }
-    if(temp->val == value)
-        return false;
-    
-    
-    struct Node* add = malloc(sizeof(struct Node));
-    memset(add, 0, sizeof(struct Node));
 
+    temp = malloc(sizeof(struct Node));
+    memset(temp, 0, sizeof(struct Node));
+    
+    temp->next = myset->table[idx];
     temp->val = value;
-    temp->next = add;
+    myset->table[idx] = temp;
     return true;
 }
 

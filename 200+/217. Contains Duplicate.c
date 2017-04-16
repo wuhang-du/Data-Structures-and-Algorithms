@@ -17,7 +17,7 @@ struct Set{
 void initSet(struct Set* myset, int size){
     myset->bucketSize = size;
     myset->table = malloc(sizeof(struct Node*) * size);
-    memset(myset->table,0,sizeof(struct Node*) * size);
+    memset(myset->table, 0, sizeof(struct Node*) * size);
 }
 
 bool addValue(struct Set* myset, int value){

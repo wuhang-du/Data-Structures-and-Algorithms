@@ -2,8 +2,6 @@
 //date: 2017-4-24
 //desc: 注意审题
 //
-//
-//
 
 
 bool checkRecord(char* s) {

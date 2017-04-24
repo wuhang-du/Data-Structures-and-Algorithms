@@ -3,8 +3,6 @@
 //descibe: 字符串的处理，顺序或者逆序都很重要。
 //			另外就是及时退出。
 //
-//
-//
 
 
 bool detectCapitalUse(char* word) {

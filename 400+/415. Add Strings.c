@@ -1,8 +1,9 @@
 //
 //date: 2017-4-25
 //desc: 第一个点： 没想到strlen,和直接求值 时间差这么多，值得测试一下。
-//		第二个点：这个代码虽然不好看，但是性能和原理是没问题的。可以将两个for循环整合在一起。
-//
+//		第二个点：这个代码虽然不好看，但是性能和原理是没问题的。可以将两个for循环整合在一起。及时跳出来。
+//      第三个点：如何精简代码，一个是整合逻辑，另外一个就是运算。
+//                  比如：取余。
 //
 //		看到配置，想起来 配置项，比如16进制，48。类似的东西应该单独出来
 
@@ -40,27 +41,35 @@ char* addStrings(char* num1, char* num2) {
         char a = less[i] - 48;
         char b = more[j] - 48;
         a = a + b + add;
-        add = 0;
+        //add = 0;
+        //两个符号，减少了7，8行代码。
+        add = a / 10;
+        a = a % 10;
+        /*
         if(a >= 10){
             add = 1;
             a = a - 10;
             answer[pos--] = a + 48;
         }else{
             answer[pos--] = a + 48;
-        }
+        }*/
     }
     
     for(j = lengthMore - lengthLess - 1; j > -1; j--){
         char a = more[j] - 48;
         a = a + add;
-        add = 0;
+        //add = 0;
+        //两个符号，减少了7，8行代码。
+        add = a / 10;
+        a = a % 10;
+        /*
         if(a >= 10){
             add = 1;
             a = a - 10;
-            answer[pos--] = a + 48; 
+            answer[pos--] = a + 48;
         }else{
             answer[pos--] = a + 48;
-        }
+        }*/
     }
     
     if(add > 0){

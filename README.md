@@ -1,2 +1,2 @@
 # leetcode
-leetcode solutions by c
+leetcode solutions by c and go

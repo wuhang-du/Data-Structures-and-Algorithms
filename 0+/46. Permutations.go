@@ -1,3 +1,6 @@
+//
+// wrong memory use
+
 func permute(nums []int) [][]int {
 	switch len(nums) {
 	case 0:
@@ -38,4 +41,33 @@ func get(start int, nums []int) [][]int {
 	}
 	return answer
 
+}
+
+// after update
+type result [][]int
+
+func permute(nums []int) [][]int {
+
+	if len(nums) == 0 {
+		return [][]int{{}}
+	}
+
+	answer := new(result)
+	answer.get(nums, 0)
+
+	return *answer
+}
+
+func (r *result) get(nums []int, pos int) {
+	if pos >= len(nums) {
+		newSlice := make([]int, len(nums))
+		copy(newSlice, nums)
+		*r = append(*r, newSlice)
+	}
+
+	for index := pos; index < len(nums); index++ {
+		nums[pos], nums[index] = nums[index], nums[pos]
+		r.get(nums, pos+1)
+		nums[pos], nums[index] = nums[index], nums[pos]
+	}
 }

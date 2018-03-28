@@ -55,4 +55,28 @@ func minSteps(n int) int {
 	return min
 }
 
+func minSteps(n int) int {
+	//n*n矩阵保存
+	cache := make([][]int, n+1)
+	for i := 0; i < n+1; i++ {
+		cache[i] = make([]int, n+1)
+	}
+	cache[1][1] = 1
 
+	answer := 0
+
+	for j := 2; j < n+1; j++ {
+		answer = 1000
+		for k := 1; k < j; k++ {
+			if j%k == 0 {
+				cache[j][k] = cache[j-k][k] + 1
+				if cache[j][k] < answer {
+					answer = cache[j][k]
+				}
+			}
+		}
+		cache[j][j] = answer + 1
+	}
+
+	return answer
+}

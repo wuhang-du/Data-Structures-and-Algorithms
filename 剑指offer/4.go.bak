@@ -1,0 +1,60 @@
+/*
+替换空格
+
+we are happy
+==》 we%20are%20happy
+
+这是个很简单的题目：
+
+如果允许附加空间：
+we%20are%20happy
+
+如果不允许附加空间：
+原来的字符串空间就够。
+
+顺序遍历1遍，得到空格的个数：此时：新字符串的起始位置为： old+2*count - 1
+两个index.
+从屁股后面开始遍历，并且依次替换。遇见空格，一个走三步，一个走1步。
+
+
+*/
+
+package main
+
+import "fmt"
+
+func main() {
+	str := []byte("we are happy")
+	buff := make([]byte, 100)
+	count := 0
+	for k, v := range []byte(str) {
+		if v == ' ' {
+			count++
+		}
+		buff[k] = v
+	}
+
+	oldIndex := len(str) - 1
+	newIndex := oldIndex + count*2
+	newLength := newIndex + 1
+	buff = buff[:newLength]
+
+	for oldIndex >= 0 && newIndex >= 0 {
+		if buff[oldIndex] != ' ' {
+			buff[newIndex] = buff[oldIndex]
+			oldIndex--
+			newIndex--
+			continue
+		}
+
+		oldIndex--
+		buff[newIndex], buff[newIndex-1], buff[newIndex-2] = '0', '2', '%'
+		newIndex = newIndex - 3
+	}
+
+	if newIndex != oldIndex || newIndex != -1 {
+		fmt.Println("error")
+	}
+
+	fmt.Println((string)(buff[:newLength]))
+}

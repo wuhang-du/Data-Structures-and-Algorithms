@@ -1,0 +1,19 @@
+package main
+
+import "fmt"
+
+func main() {
+
+}
+
+type Node struct {
+	val  int
+	next *Node
+}
+
+func Print(root *Node) {
+	if root.next != nil {
+		Print(root.next)
+	}
+	fmt.Println(root.val)
+}

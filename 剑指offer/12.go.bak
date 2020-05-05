@@ -1,0 +1,58 @@
+/*
+输入数组n,依次打印1-n的十进制数字。
+n=3
+则：1，2，3... 999
+
+n < 0 肯定不用关注。
+n=100
+
+像是100位的字符运算。
+
+
+*/
+package main
+
+import "fmt"
+
+func main() {
+	Print(2)
+}
+
+func Print(n int) {
+	buff := make([]byte, n+1)
+	for k := range buff {
+		buff[k] = '0'
+	}
+
+	buff[n] = '1'
+	countByte := 0
+
+	for buff[0] != '1' {
+		fmt.Println(string(buff[n-countByte:]))
+		addone(buff)
+		if buff[n-countByte-1] == '1' {
+			countByte += 1
+		}
+	}
+}
+
+func addone(buff []byte) int {
+	n := len(buff)
+	carry := 1
+	count := 1
+
+	for carry > 0 {
+		nowPos := n - count
+		if buff[nowPos] >= '0' && buff[nowPos] < '9' {
+			buff[nowPos] += byte(carry)
+			break
+		}
+		//add pos
+		count++
+		if buff[nowPos] == '9' {
+			buff[nowPos] = '1'
+			carry = 1
+		}
+	}
+	return count
+}

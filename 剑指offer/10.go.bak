@@ -1,0 +1,37 @@
+/*
+二进制1的个数
+
+10001
+大数问题？
+
+位运算的移位问题：
+向右移：什么问题都没有。右边补0，左边正常挪。
+向左移：还是补的左边的位数字。
+
+对于有符号数：补符号位。
+对于无符号数：补0.
+
+=========相关题目=============
+1. 计算两个数需要移多少位才能相同。 异或再统计。
+2. 是否是2的正数次幂。
+
+*/
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println(CountBitOne(0x31))
+}
+
+func CountBitOne(num int) int {
+	a := 1
+	count := 0
+	for a > 0 {
+		if (num & a) > 0 {
+			count++
+		}
+		a = a << 1
+	}
+	return count
+}

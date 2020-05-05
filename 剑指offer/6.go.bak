@@ -1,0 +1,43 @@
+/*
+题目：重建二叉树
+
+输入某二叉树的前序遍历与中序遍历的结果。重建该二叉树。假设不包含重复的数字
+
+前序遍历： 1，2，4，7，3，5，6，8
+中序遍历： 4，7，2，1，5，3，8，6
+
+ps: 前序遍历是先根节点，再左，再右。
+	中序遍历是 先左，再中，再右。
+*/
+
+package main
+
+func main() {
+
+}
+
+type Node struct {
+	val   int
+	left  *Node
+	right *Node
+}
+
+func FindRoot(rootFirst []int, rootMid []int) *Node {
+	root := &Node{rootFirst[0], nil, nil}
+	rootVal := rootFirst[0]
+	posIMid := findPos(rootMid, rootVal)
+
+	root.left = FindRoot(rootFirst[:posIMid], rootMid[:posIMid])
+	root.right = FindRoot(rootFirst[posIMid+1:], rootMid[posIMid+1:])
+
+	return root
+}
+
+func findPos(data []int, terget int) int {
+	for k, v := range data {
+		if v == terget {
+			return k
+		}
+	}
+	return -1
+}

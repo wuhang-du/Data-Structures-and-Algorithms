@@ -1,0 +1,16 @@
+/*
+用两个栈实现队列：
+
+队列：先进先出。
+栈： 先进后出。
+
+stack1:
+stack2:
+
+
+*/
+package main
+
+func main() {
+
+}

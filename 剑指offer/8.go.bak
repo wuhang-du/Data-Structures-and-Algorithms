@@ -1,0 +1,64 @@
+/*
+题目描述：
+某一个递增数组。最开始若干元素搬到数组的末尾，为旋转。
+3，4，5，1，2 找1.
+
+题目分析：已排序是一个可以利用的性质--考虑利用 二分法。
+
+首先考虑正常的场景下：
+前半部分，后半部分。
+mid 算出来：两种可能：
+第一种属于前半部分即：left <= mid > right
+第二种属于后半部分即: left > mid  且： mid <= right
+
+是否存在： left > mid 且 mid > right 递减
+是否存在   left <=mid 且 mid <= right 。可能没有移位：即旋转为0.
+
+*/
+package main
+
+import "fmt"
+
+func main() {
+	data := []int{1, 1, 1, 0, 1}
+	z, b := FindMin(data)
+	fmt.Println(z, b)
+}
+
+func FindMin(data []int) (int, bool) {
+	l := 0
+	r := len(data) - 1
+	for l <= r {
+		fmt.Println(l, r)
+		if r-l <= 2 {
+			return min(data[l : r+1])
+		}
+		m := (l + r) / 2
+		left := data[l]
+		right := data[r]
+		mid := data[m]
+
+		if left <= mid && mid > right {
+			l = m + 1
+			continue
+		}
+
+		if left > mid && mid <= right {
+			r = m - 1
+			continue
+		}
+
+		return min(data)
+	}
+	return 0, false
+}
+
+func min(data []int) (int, bool) {
+	min := data[0]
+	for _, v := range data {
+		if v < min {
+			min = v
+		}
+	}
+	return min, true
+}

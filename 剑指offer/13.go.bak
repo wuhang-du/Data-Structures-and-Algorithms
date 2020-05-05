@@ -1,0 +1,48 @@
+/*
+给定一个头指针与节点指针，o(1)删除。
+
+如果：头指针就是要删除的执政。gg.
+
+head **Node
+point *Node
+
+*/
+
+package main
+
+type Node struct {
+	Val  int
+	Next *Node
+}
+
+func main() {
+	var head **Node
+	var point *Node
+	Delete(head, point)
+}
+
+func Delete(head **Node, point *Node) *Node {
+	if *head == point {
+		*head = point.Next
+		return *head
+	}
+
+	if point.Next != nil {
+		tmpPoint := point.Next
+		point.Next = tmpPoint.Next
+		point.Val = tmpPoint.Val
+		return *head
+	}
+
+	//point.Next == nil
+	headTmp := *head
+	for headTmp.Next != nil {
+		if headTmp.Next == point {
+			headTmp.Next = nil
+			break
+		}
+		headTmp = headTmp.Next
+	}
+
+	return *head
+}
